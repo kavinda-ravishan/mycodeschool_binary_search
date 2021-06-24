@@ -1,2 +1,8 @@
 ﻿  Application.cpp
+e:\projects\git_projects\mycodeschool_binary_search\mycodeschool_binary_search\application.cpp(6): warning C4018: '<': signed/unsigned mismatch
+  e:\projects\git_projects\mycodeschool_binary_search\mycodeschool_binary_search\application.cpp(37): note: see reference to function template instantiation 'int Search<int>(T *,unsigned int,T)' being compiled
+          with
+          [
+              T=int
+          ]
   mycodeschool_binary_search.vcxproj -> E:\Projects\Git_Projects\mycodeschool_binary_search\Debug\mycodeschool_binary_search.exe
