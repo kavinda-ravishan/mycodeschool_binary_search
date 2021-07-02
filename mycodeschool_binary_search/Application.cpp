@@ -154,6 +154,23 @@ FLI SearchBinFLO(T* arr, unsigned int size, T value) {
 	return FLI(-1, -1);
 }
 
+template <typename T>
+int findPivotIndex(T* arr, unsigned int size) {
+
+	int end = size - 1, start = 0, mid;
+
+	while (start <= end) {
+
+		mid = (start + end) / 2;
+
+		if (arr[start] <= arr[end]) return start;
+		else if ((arr[mid] < arr[(mid + size - 1) % size]) && (arr[mid] <= arr[(mid + 1) % size])) return mid;
+		else if (arr[mid] <= arr[end]) end = mid - 1;
+		else if (arr[mid] >= arr[end]) start = mid + 1;
+	}
+	return -1;
+}
+
 int main(int argc, char** args) {
 
 	//const unsigned int size = 5;
@@ -163,16 +180,35 @@ int main(int argc, char** args) {
 	//std::cout << SearchBin<int>(x, size, 32) << std::endl;
 	//std::cout << SearchBinRec<int>(x, size, 32) << std::endl;
 
+
+
 	//int x_2[] = { 2,4,10,10,10,18,20 };
 	//std::cout << SearchBinFO<int>(x_2, size_2, 10) << std::endl;
 	//std::cout << SearchBinLO<int>(x_2, size_2, 10) << std::endl;
 
-	int x_3[] = { 1,1,3,3,5,5,5,5,5,9,9,11 };
-	FLI fli(SearchBinFLO<int>(x_3, sizeof(x_3)/sizeof(x_3[0]), 6));
 
-	std::cout << "( first, last ) : "<<fli.first <<", "<< fli.last << std::endl;
-	std::cout << "Number of items : " << (fli.first == -1 ? 0 : (fli.last - fli.first + 1))<< std::endl;
 
+	//int x_3[] = { 1,1,3,3,5,5,5,5,5,9,9,11 };
+	//FLI fli(SearchBinFLO<int>(x_3, sizeof(x_3)/sizeof(x_3[0]), 6));
+
+	//std::cout << "( first, last ) : "<<fli.first <<", "<< fli.last << std::endl;
+	//std::cout << "Number of items : " << (fli.first == -1 ? 0 : (fli.last - fli.first + 1))<< std::endl;
+
+
+
+	// circularly sorted array ( and No duplicates)
+	// EX : Anti-clockwise rotation
+	// EX : { 1, 2, 3, 4, 5 }
+	//      { 5, 1, 2, 3 ,4 } - Rotated ones (min index = 1)
+	//      { 4, 5, 1, 2, 3 } - Rotated twice (min index = 2)
+
+	// Number of rotations = index of minimum value
+	// Elements in both sides larger than min element
+	int x_4[] = { 11,12,15,18,2,5,6,8 };
+	std::cout << "The array is rotated "<<findPivotIndex(x_4, sizeof(x_4) / sizeof(x_4[0]))<<" times." << std::endl;
+	
+	int x_5[] = { 2,5,6,8,11,12,15,18 };
+	std::cout << "The array is rotated " << findPivotIndex(x_5, sizeof(x_5) / sizeof(x_5[0])) << " times." << std::endl;
 
 	return 0;
 }
