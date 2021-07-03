@@ -171,6 +171,31 @@ int findPivotIndex(T* arr, unsigned int size) {
 	return -1;
 }
 
+template <typename T>
+int SearchBinCircularArray(T* arr, unsigned int size, T value) {
+
+	int start = 0, end = size - 1, mid;
+
+	while (start <= end) {
+
+		mid = (start + end) / 2;
+
+		if (arr[mid] == value) return mid;
+		else if (arr[mid] <= arr[end]) {// right half is sorted
+			
+			if (value > arr[mid] && value <= arr[end]) start = mid + 1;
+			else end = mid - 1;
+		}
+		else { // left half is sorted
+
+			if (value >= arr[start] && value < arr[mid]) end = mid - 1;
+			else start = mid + 1;
+		}
+	}
+
+	return -1;
+}
+
 int main(int argc, char** args) {
 
 	//const unsigned int size = 5;
@@ -204,11 +229,16 @@ int main(int argc, char** args) {
 
 	// Number of rotations = index of minimum value
 	// Elements in both sides larger than min element
-	int x_4[] = { 11,12,15,18,2,5,6,8 };
-	std::cout << "The array is rotated "<<findPivotIndex(x_4, sizeof(x_4) / sizeof(x_4[0]))<<" times." << std::endl;
+	//int x_4[] = { 11,12,15,18,2,5,6,8 };
+	//std::cout << "The array is rotated "<<findPivotIndex(x_4, sizeof(x_4) / sizeof(x_4[0]))<<" times." << std::endl;
 	
-	int x_5[] = { 2,5,6,8,11,12,15,18 };
-	std::cout << "The array is rotated " << findPivotIndex(x_5, sizeof(x_5) / sizeof(x_5[0])) << " times." << std::endl;
+	//int x_5[] = { 2,5,6,8,11,12,15,18 };
+	//std::cout << "The array is rotated " << findPivotIndex(x_5, sizeof(x_5) / sizeof(x_5[0])) << " times." << std::endl;
+
+	int x_6[] = { 12,14,18,21,3,6,8,9 };
+	std::cout << SearchBinCircularArray(x_6, sizeof(x_6) / sizeof(x_6[0]), 9) << std::endl;
+	std::cout << SearchBinCircularArray(x_6, sizeof(x_6) / sizeof(x_6[0]), 19) << std::endl;
+
 
 	return 0;
 }
